@@ -18,7 +18,7 @@ st.markdown(
     """
     <style>
     .stApp {
-        background-image: url("https://images.unsplash.com/photo-1542224566-0d1a8f06eb62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-image: url("https://images.unsplash.com/photo-1551817958-20204b94f7c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -27,6 +27,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
 
 st.markdown("""
     Optimize your investment portfolio using real-time financial data.  
