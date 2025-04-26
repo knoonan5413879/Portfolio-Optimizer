@@ -127,6 +127,14 @@ try:
             width=900,
             height=600,
         )
+        # Customize hover info
+        fig.update_traces(
+            hovertemplate=
+            '<b>Return:</b> %{y:.2%}<br>' +
+            '<b>Volatility:</b> %{x:.2%}<br>' +
+            '<b>Sharpe Ratio:</b> %{marker.color:.2f}<br>' +
+            '<extra></extra>'
+        )
 
         # Highlight the optimal portfolio point
         fig.add_scatter(
