@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 from scipy.optimize import minimize
 from datetime import date
+import plotly.express as px
 
 ## Page config
 st.set_page_config(
@@ -99,14 +100,40 @@ try:
 
     with tab2:
         st.header("Efficient Frontier")
-        fig, ax = plt.subplots(figsize=(10, 7))
-        scatter = ax.scatter(results[1, :], results[0, :], c=results[2, :], cmap='viridis', marker='o')
-        ax.scatter(results[1, max_sharpe_idx], results[0, max_sharpe_idx], c='red', marker='*', s=200)
-        ax.set_xlabel('Portfolio Volatility (Risk)')
-        ax.set_ylabel('Portfolio Return')
-        ax.set_title('Efficient Frontier')
-        fig.colorbar(scatter, label='Sharpe Ratio')
-        st.pyplot(fig)
+        
+
+        # Create a DataFrame for plotting
+        plot_df = pd.DataFrame({
+            'Volatility': results[1, :],
+            'Return': results[0, :],
+            'Sharpe Ratio': results[2, :]
+        })
+
+        # Plot Efficient Frontier using Plotly
+        fig = px.scatter(
+            plot_df,
+            x='Volatility',
+            y='Return',
+            color='Sharpe Ratio',
+            color_continuous_scale='viridis',
+            title="Efficient Frontier (Interactive)",
+            labels={'Volatility': 'Portfolio Volatility (Risk)', 'Return': 'Portfolio Return'},
+            width=900,
+            height=600,
+        )
+
+        # Highlight the optimal portfolio point
+        fig.add_scatter(
+            x=[results[1, max_sharpe_idx]],
+            y=[results[0, max_sharpe_idx]],
+            mode='markers',
+            marker=dict(color='red', size=15, symbol='star'),
+            name='Optimal Portfolio'
+        )
+
+        st.plotly_chart(fig)
+
+       
 
     with tab3:
         st.header("Optimal Portfolio Details")
