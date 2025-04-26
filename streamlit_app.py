@@ -6,6 +6,12 @@ import yfinance as yf
 from scipy.optimize import minimize
 from datetime import date
 
+## Page config
+st.set_page_config(
+    page_title="Portfolio Optimizer",
+    page_icon="🎯",
+    layout="wide",
+)
 # Set Streamlit Page Config
 st.set_page_config(page_title="📈 Portfolio Optimizer", layout="wide")
 
@@ -17,6 +23,8 @@ with st.sidebar:
     start_date = st.date_input("Start Date", pd.to_datetime("2017-01-01"))
     n_portfolios = st.slider("Number of Portfolios to Simulate", 1000, 20000, 10000)
 
+
+
 # Use today's date automatically for real-time data
 end_date = date.today()
 
@@ -27,6 +35,10 @@ def download_and_clean_prices(tickers, start_date, end_date):
     adj_close = data.xs('Adj Close', level=1, axis=1)
     adj_close = adj_close.dropna(how='all', axis=1).ffill()
     return adj_close
+
+#Loading Data Icon
+with st.spinner("📡 Fetching data... please wait..."):
+    adj_close = download_and_clean_prices(tickers, start_date, end_date)
 
 # Portfolio performance
 def portfolio_performance(weights, expected_returns, cov_matrix):
@@ -103,6 +115,26 @@ try:
         st.subheader("🔹 Optimal Weights")
         for ticker, weight in zip(tickers, optimal_weights):
             st.write(f"**{ticker}:** {weight:.2%}")
+        
+        # Convert optimal weights to a DataFrame for download
+        weights_df = pd.DataFrame({
+            'Ticker': tickers,
+            'Optimal Weight': optimal_weights
+        })
+
+        # Display DataFrame
+        st.dataframe(weights_df.style.format({"Optimal Weight": "{:.2%}"}))
+
+        # Create download button
+        csv = weights_df.to_csv(index=False).encode('utf-8')
+
+        st.download_button(
+            label="📌 Download Portfolio as CSV",
+            data=csv,
+            file_name='optimal_portfolio.csv',
+            mime='text/csv',
+        )
+
 
         st.subheader("🔹 Performance Metrics")
         col1, col2 = st.columns(2)
