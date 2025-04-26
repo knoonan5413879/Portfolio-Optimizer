@@ -15,18 +15,19 @@ st.set_page_config(
 )
 
 st.markdown(
-    """
+    f"""
     <style>
-    .stApp {
-        background-image: url("https://images.unsplash.com/photo-1551817958-20204b94f7c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+    .stApp {{
+        background-image: url("https://github.com/knoonan5413879/Portfolio-Optimizer/blob/eb60bab1970ad7014b241ba70c95ef905c686258/background_image.jpg");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
-    }
+    }}
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 
 st.markdown("""
