@@ -14,14 +14,20 @@ st.set_page_config(
     layout="wide",
 )
 
+st.markdown("""
+    Optimize your investment portfolio using real-time financial data.  
+    Simulate thousands of portfolio combinations and find the one with the maximum Sharpe Ratio.
+    """)
+
+
 # Sidebar - User Inputs
 with st.sidebar:
-    st.title("Settings ⚙️")
+    st.title("Portfolio Optimizer App")
     tickers_input = st.text_input("Enter Tickers (comma-separated)", "VTI, SCHD, BND, VXUS")
     tickers = [ticker.strip().upper() for ticker in tickers_input.split(",")]
     start_date = st.date_input("Start Date", pd.to_datetime("2017-01-01"))
     n_portfolios = st.slider("Number of Portfolios to Simulate", 1000, 20000, 10000)
-
+    
 
 
 # Use today's date automatically for real-time data
