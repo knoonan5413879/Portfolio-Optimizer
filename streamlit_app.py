@@ -18,7 +18,9 @@ st.markdown(
     """
     <style>
     .stApp {
-        background: linear-gradient(135deg, #f0f2f6 0%, #c9d6ff 100%);
+        background-image: url("https://images.unsplash.com/photo-1542224566-0d1a8f06eb62?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80");
+        background-size: cover;
+        background-position: center;
         background-attachment: fixed;
     }
     </style>
