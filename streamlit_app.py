@@ -14,6 +14,18 @@ st.set_page_config(
     layout="wide",
 )
 
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: linear-gradient(135deg, #f0f2f6 0%, #c9d6ff 100%);
+        background-attachment: fixed;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown("""
     Optimize your investment portfolio using real-time financial data.  
     Simulate thousands of portfolio combinations and find the one with the maximum Sharpe Ratio.
