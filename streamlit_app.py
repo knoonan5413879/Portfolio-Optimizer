@@ -9,11 +9,9 @@ from datetime import date
 ## Page config
 st.set_page_config(
     page_title="Portfolio Optimizer",
-    page_icon="🎯",
+    page_icon="📈",
     layout="wide",
 )
-# Set Streamlit Page Config
-st.set_page_config(page_title="📈 Portfolio Optimizer", layout="wide")
 
 # Sidebar - User Inputs
 with st.sidebar:
