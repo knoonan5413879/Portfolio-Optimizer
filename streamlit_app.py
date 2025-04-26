@@ -28,6 +28,15 @@ with st.sidebar:
     start_date = st.date_input("Start Date", pd.to_datetime("2017-01-01"))
     n_portfolios = st.slider("Number of Portfolios to Simulate", 1000, 20000, 10000)
     
+    #Allocation sidebar
+    st.sidebar.subheader("Allocation Constraints")
+
+    min_allocation = st.sidebar.slider("Minimum allocation per asset (%)", 0, 50, 0)
+    max_allocation = st.sidebar.slider("Maximum allocation per asset (%)", 50, 100, 100)
+    if min_allocation > max_allocation:
+        st.sidebar.error("Minimum allocation cannot exceed maximum allocation.")
+
+    
 
 
 # Use today's date automatically for real-time data
@@ -79,7 +88,11 @@ try:
 
     # Optimization
     constraints = ({'type': 'eq', 'fun': lambda x: np.sum(x) - 1})
-    bounds = tuple((0, 1) for _ in range(len(tickers)))
+    bounds = tuple(
+    (min_allocation / 100, max_allocation / 100)
+    for _ in range(len(tickers))
+)
+
     initial_guess = np.array([1/len(tickers)] * len(tickers))
 
     optimal_result = minimize(
