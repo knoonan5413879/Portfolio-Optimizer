@@ -178,6 +178,14 @@ try:
             marker=dict(color='red', size=15, symbol='star'),
             name='Optimal Portfolio'
         )
+        if set_target_return or set_target_volatility:
+            fig.add_scatter(
+                x=[optimal_risk],
+                y=[optimal_return],
+                mode='markers',
+                marker=dict(color='blue', size=12, symbol='diamond'),
+                name='Target Portfolio'
+            )
 
         st.plotly_chart(fig)
 
