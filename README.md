@@ -26,3 +26,8 @@ It pulls real-time financial data with **yFinance**, simulates thousands of rand
 - Start Date: Adjustable
 - End Date: Automatically set to Today (real-time)
 
+<<<<<<< HEAD
+=======
+---
+
+>>>>>>> 5bbcf85033f0144008d71938df3d8e8785cd9f6f
