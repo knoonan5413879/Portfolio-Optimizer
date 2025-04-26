@@ -15,15 +15,12 @@ st.set_page_config(
 )
 
 st.markdown(
-    f"""
+    """
     <style>
-    .stApp {{
-        background-image: url("https://raw.githubusercontent.com/knoonan5413879/Portfolio-Optimizer/main/background_image.jpg
-");
-        background-size: cover;
-        background-position: center;
+    .stApp {
+        background: linear-gradient(135deg, #f0f2f6 0%, #c9d6ff 100%);
         background-attachment: fixed;
-    }}
+    }
     </style>
     """,
     unsafe_allow_html=True
