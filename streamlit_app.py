@@ -35,6 +35,19 @@ with st.sidebar:
     max_allocation = st.sidebar.slider("Maximum allocation per asset (%)", 50, 100, 100)
     if min_allocation > max_allocation:
         st.sidebar.error("Minimum allocation cannot exceed maximum allocation.")
+    
+    st.sidebar.subheader("Optional Target Settings")
+
+    set_target_return = st.sidebar.checkbox("Set Target Return?")
+    target_return = None
+    if set_target_return:
+        target_return = st.sidebar.number_input("Target Return (%)", min_value=0.0, max_value=100.0, value=8.0) / 100
+
+    set_target_volatility = st.sidebar.checkbox("Set Target Volatility?")
+    target_volatility = None
+    if set_target_volatility:
+        target_volatility = st.sidebar.number_input("Target Volatility (%)", min_value=0.0, max_value=100.0, value=10.0) / 100
+
 
     
 
@@ -87,7 +100,15 @@ try:
     optimal_weights = weights_record[max_sharpe_idx]
 
     # Optimization
-    constraints = ({'type': 'eq', 'fun': lambda x: np.sum(x) - 1})
+    # Constraints (weights sum to 1 + optional targets)
+    constraints = [{'type': 'eq', 'fun': lambda x: np.sum(x) - 1}]
+
+    if set_target_return:
+        constraints.append({'type': 'eq', 'fun': lambda x: np.dot(x, expected_returns) - target_return})
+
+    if set_target_volatility:
+        constraints.append({'type': 'eq', 'fun': lambda x: np.sqrt(np.dot(x.T, np.dot(cov_matrix, x))) - target_volatility})
+
     bounds = tuple(
     (min_allocation / 100, max_allocation / 100)
     for _ in range(len(tickers))
