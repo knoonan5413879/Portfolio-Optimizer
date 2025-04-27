@@ -94,6 +94,7 @@ def minimize_volatility(weights, expected_returns, cov_matrix):
 # Main Logic
 try:
     adj_close = download_and_clean_prices(tickers, start_date, end_date)
+    tickers = adj_close.columns.tolist()
     returns = adj_close.pct_change().dropna()
     expected_returns = returns.mean() * 252
     cov_matrix = returns.cov() * 252
