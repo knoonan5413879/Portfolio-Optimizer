@@ -46,7 +46,7 @@ with st.sidebar:
     st.sidebar.subheader("Allocation Constraints")
 
     min_allocation = st.sidebar.slider("Minimum allocation per asset (%)", 0, 50, 0)
-    max_allocation = st.sidebar.slider("Maximum allocation per asset (%)", 50, 100, 100)
+    max_allocation = st.sidebar.slider("Maximum allocation per asset (%)", 10, 100, 100)
     if min_allocation > max_allocation:
         st.sidebar.error("Minimum allocation cannot exceed maximum allocation.")
     
